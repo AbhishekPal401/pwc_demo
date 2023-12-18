@@ -1,16 +1,28 @@
 // App.js
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "../pages/auth/login";
+import AuthRoutes from "../routers/Auth";
+import AdminRoutes from "../routers/Admin";
+import { useDispatch, useSelector } from "react-redux";
 
 const Routers = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Login />} />
-      </Routes>
-    </Router>
-  );
+  const [isAuthorised, setIsAuthorised] = useState(false);
+
+  const { credentials } = useSelector((state) => state.login);
+
+  useEffect(() => {
+    if (credentials?.success) {
+      if (credentials?.data?.token) {
+        setIsAuthorised(true);
+      } else {
+        setIsAuthorised(false);
+      }
+    } else {
+      setIsAuthorised(false);
+    }
+  }, [credentials]);
+
+  return <Router>{isAuthorised ? <AdminRoutes /> : <AuthRoutes />}</Router>;
 };
 
 export default Routers;

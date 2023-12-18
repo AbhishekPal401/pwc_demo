@@ -1,13 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { apiCallBegan } from "../../middleware/actions.js";
 import axios from "axios";
+import { baseUrl } from "../../middleware/url.js";
 
 //api calling type 2
 
-export const login2 = createAsyncThunk("posts/login2", async () => {
-  const response = await axios.get("http://localhost:5174");
-  return response.data;
-});
+// export const login = createAsyncThunk("login", async (data) => {
+//   const response = await axios.post(`${baseUrl}\api/Auth/Auth`, data);
+//   return response.data;
+// });
 
 const slice = createSlice({
   name: "user-login",
@@ -33,20 +34,20 @@ const slice = createSlice({
       users.loading = false;
     },
   },
-  extraReducers(builder) {
-    builder
-      .addCase(login2.pending, (state, action) => {
-        state.status = "loading";
-      })
-      .addCase(login2.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.posts = state.posts.concat(action.payload);
-      })
-      .addCase(login2.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message;
-      });
-  },
+  // extraReducers(builder) {
+  //   builder
+  //     .addCase(login.pending, (state, action) => {
+  //       state.status = "loading";
+  //     })
+  //     .addCase(login.fulfilled, (state, action) => {
+  //       state.status = "succeeded";
+  //       state.posts = state.posts.concat(action.payload);
+  //     })
+  //     .addCase(login.rejected, (state, action) => {
+  //       state.status = "failed";
+  //       state.error = action.error.message;
+  //     });
+  // },
 });
 
 export const { requested, success, failed, logout } = slice.actions;
@@ -55,12 +56,61 @@ export default slice.reducer;
 
 //api calling type 1
 
-export const login = (data) =>
-  apiCallBegan({
-    url: "/auth/login",
-    method: "POST",
-    data,
-    onStart: requested.type,
-    onSuccess: success.type,
-    onFailed: failed.type,
-  });
+// export const login = (data) =>
+//   apiCallBegan({
+//     url: "api/Auth/Auth",
+//     method: "POST",
+//     data,
+//     onStart: requested.type,
+//     onSuccess: success.type,
+//     onFailed: failed.type,
+//   });
+
+export const login = (data) => async (dispatch) => {
+  try {
+    dispatch(requested());
+    const headers = { "Content-Type": "application/json" };
+
+    const response = await axios.request({
+      baseURL: baseUrl,
+      url: "/api/Auth/Auth",
+      method: "POST",
+      data,
+      headers,
+    });
+
+    console.log(response.data);
+
+    dispatch(success(response.data));
+  } catch (err) {
+    dispatch(
+      failed(
+        err.response && err.response.data ? err.response.data : err.message
+      )
+    );
+  }
+};
+
+export const azurelogin = (data) => async (dispatch) => {
+  try {
+    dispatch(requested());
+
+    const headers = { "Content-Type": "application/json" };
+
+    const response = await axios.request({
+      baseURL: baseUrl,
+      url: "/api/Auth/AuthByEmail",
+      method: "POST",
+      data,
+      headers,
+    });
+
+    dispatch(success(response.data));
+  } catch (err) {
+    dispatch(
+      failed(
+        err.response && err.response.data ? err.response.data : err.message
+      )
+    );
+  }
+};

@@ -1,9 +1,8 @@
 :root {
-  --bg-color: #fdfdfd;
-  --primary: #303c6d;
-  --primary-light: #404f90;
-  --secondary: #e56e00;
-  --secondary-light: #f4c599;
+  --primary: #ffd15d;
+  --primary-light: #fff4d8;
+  --black: #171717;
+  --background-color: #f2f2f2;
 }
 
 *::after,
@@ -21,5 +20,11 @@
 
 html {
   font-size: 62.5%;
-  font-family: "Poppins", sans-serif;
+  font-family: "Helvetica Neue", "Poppins", sans-serif;
 }
+
+/* @font-face {
+  font-family: "Helvetica Neue medium";
+  src: local("Helvetica Neue"),
+    url("./assets/fonts/HelveticaNeueLTProMd.otf") format("opentype");
+} */

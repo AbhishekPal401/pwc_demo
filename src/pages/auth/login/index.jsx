@@ -1,18 +1,17 @@
 import React, { useEffect } from "react";
 import styles from "./login.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../../store/auth/login.js";
-
+import LoginForm from "../../../components/forms/loginForm";
+import backgroundImage from "../../../assets/images/loginbackground.png";
 const Login = () => {
-  const store = useSelector((state) => state.login);
-
-  const dispatch = useDispatch();
-
-  console.log(store);
-
   return (
     <div className={styles.container}>
-      <h1>Login</h1>
+      <div className={styles.containerLeftColumn}>
+        <LoginForm />
+      </div>
+      <div className={styles.containerRightColumn}>
+        <img src={backgroundImage}></img>
+      </div>
     </div>
   );
 };
