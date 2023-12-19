@@ -1,11 +1,66 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./homepage.module.css";
 import Button from "../../../../components/common/button";
 import PageContainer from "../../../../components/ui/pagecontainer";
 import Pagination from "../../../../components/ui/pagination";
-
+import { useSelector, useDispatch } from "react-redux";
+import {
+  getUsersbyPage,
+  resetUserState,
+} from "../../../../store/app/admin/users/users";
+import {getSessionHistoryByType} from "../../../../store/app/admin/session/session.js";
+import { generateGUID } from "../../../../utils/common.js";
 
 const Homepage = () => {
+
+  const [pageCount, setPageCount] = useState(10);
+  const [pageNumber, setageNumber] = useState(1);
+
+  const dispatch = useDispatch();
+
+  const { usersByPage, loading } = useSelector((state) => state.users);
+  const { credentials } = useSelector((state) => state.login);
+
+  const sessionHistory = useSelector((state) => state.sessionHistory); 
+
+
+  // console.log("usersByPage", usersByPage);
+  console.log("session history :", sessionHistory);
+
+  useEffect(() => {
+    if (credentials) {
+      const data = {
+        pageNumber: 1,
+        pageCount: pageCount,
+        type: "recent",
+        requester: {
+          requestID: generateGUID(),
+          requesterID: credentials.data.userID,
+          requesterName: credentials.data.userName,
+          requesterType: credentials.data.role,
+        },
+      };
+
+      dispatch(getSessionHistoryByType(data));
+    }
+  },  [dispatch]);
+
+  useEffect(() => {
+    if (credentials) {
+      const data = {
+        pageNumber: 1,
+        pageCount: pageCount,
+        requester: {
+          requestID: generateGUID(),
+          requesterID: credentials.data.userID,
+          requesterName: credentials.data.userName,
+          requesterType: credentials.data.role,
+        },
+      };
+
+      dispatch(getUsersbyPage(data));
+    }
+  }, []);
 
 
 
@@ -24,21 +79,24 @@ const Homepage = () => {
         <div className={styles.sessionHistoryContainer}>
           <h3>Session History</h3>
           <div className={styles.sessionHistoryCardContainer}>
-            <div className={styles.sessionHistoryCard}>
-              <h4>Pwc Risk Session</h4>
-              <p>Scenario:</p>
-              <p>Status:</p>
-              <div className={styles.butonFlexContainer}>
-                <div className={styles.updatedDate}>
-                  <p>Updated: </p>
-                </div>
-                <div>
-                  <Button>
-                    Start
-                  </Button>
-                </div>
+            {sessionHistory.map((history) => (
+            <div key={history.} className={styles.sessionHistoryCard}>
+            <h4>Pwc Risk Session</h4>
+            <p>Scenario:</p>
+            <p>Status:</p>
+            <div className={styles.butonFlexContainer}>
+              <div className={styles.updatedDate}>
+                <p>Updated: </p>
+              </div>
+              <div>
+                <Button>
+                  Start
+                </Button>
               </div>
             </div>
+          </div>
+            ))}
+
           </div>
 
         </div>
@@ -56,88 +114,46 @@ const Homepage = () => {
             </div>
           </div>
           <div className={styles.mainTableContainer}>
-            <table className={styles.table_content}>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Username</th>
-                  <th>EmailId</th>
-                  <th>Designation</th>
-                  <th>Organistion</th>
-                  <th>Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>User</td>
-                  <td>Email@gmail.com</td>
-                  <td>CFO</td>
-                  <td>PWC</td>
-                  <td>button</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>User</td>
-                  <td>Email@gmail.com</td>
-                  <td>CFO</td>
-                  <td>PWC</td>
-                  <td>button</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>User</td>
-                  <td>Email@gmail.com</td>
-                  <td>CFO</td>
-                  <td>PWC</td>
-                  <td>button</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>User</td>
-                  <td>Email@gmail.com</td>
-                  <td>CFO</td>
-                  <td>PWC</td>
-                  <td>button</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>User</td>
-                  <td>Email@gmail.com</td>
-                  <td>CFO</td>
-                  <td>PWC</td>
-                  <td>button</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>User</td>
-                  <td>Email@gmail.com</td>
-                  <td>CFO</td>
-                  <td>PWC</td>
-                  <td>button</td>
-                </tr>
-
-                <tr>
-                  <td>1</td>
-                  <td>User</td>
-                  <td>Email@gmail.com</td>
-                  <td>CFO</td>
-                  <td>PWC</td>
-                  <td>button</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>User</td>
-                  <td>Email@gmail.com</td>
-                  <td>CFO</td>
-                  <td>PWC</td>
-                  <td>button</td>
-                </tr>
-              </tbody>
-            </table>
-            <div className={styles.paginationContainer}>
-              <Pagination totalCount={100} pageNumber={10} countPerPage={10} />
-            </div>
+          <table className={styles.table_content}>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Username</th>
+              <th>EmailId</th>
+              <th>Designation</th>
+              <th>Organistion</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {usersByPage &&
+              usersByPage.success &&
+              usersByPage.data &&
+              JSON.parse(usersByPage.data)?.UserDetails.map((user, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{user.UserName}</td>
+                    <td>{user.Email}</td>
+                    <td>{user.Designation}</td>
+                    <td>{user.OrganizationName}</td>
+                    <td>
+                      <button onClick={() => {}}>Delete</button>
+                    </td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </table>
+        {usersByPage && usersByPage.success && usersByPage.data && (
+          <div className={styles.paginationContainer}>
+            <Pagination
+              totalCount={JSON.parse(usersByPage.data)?.TotalCount}
+              pageNumber={pageNumber}
+              countPerPage={pageCount}
+            />
+          </div>
+        )}
           </div>
         </div>
 

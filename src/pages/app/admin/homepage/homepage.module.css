@@ -1,7 +1,10 @@
+PageContainer {
+  overflow: scroll;
+}
 .mainContainer {
   display: flex;
   flex-direction: column;
-  gap: 4.7rem;
+  gap: 4rem;
 }
 .topContainer {
   width: 100%;
@@ -42,6 +45,8 @@
   bottom: 0;
   right: 0.8rem;
 }
+
+/* Sesion History */
 
 .sessionHistoryContainer {
   width: 100%;
