@@ -3,7 +3,7 @@ import Button from "../../common/button";
 import Input from "../../common/input";
 import Checkbox from "../../ui/checkbox";
 import styles from "./loginForm.module.css";
-import pwcLogo from "../../../assets/logo/pwc-logo-black-and-white.png";
+import pwcLogo from "../../../assets/logo/pwc.png";
 import { Link } from "react-router-dom";
 import { validateEmail } from "../../../utils/validators";
 import { useDispatch, useSelector } from "react-redux";
