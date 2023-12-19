@@ -25,10 +25,8 @@ const api =
 
     try {
       const {
-        credentials: { credentials },
+        login: { credentials },
       } = getState();
-
-      console.log(onReset);
 
       if (onReset) dispatch({ type: onReset, payload: null });
 

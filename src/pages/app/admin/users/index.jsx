@@ -1,10 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PageContainer from "../../../../components/ui/pagecontainer";
 import styles from "./users.module.css";
 import Button from "../../../../components/common/button";
 import Pagination from "../../../../components/ui/pagination";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  getUsersbyPage,
+  resetUserState,
+} from "../../../../store/app/admin/users/users";
+import { generateGUID } from "../../../../utils/common.js";
 
 const Users = () => {
+  const [pageCount, setPageCount] = useState(10);
+
+  const dispatch = useDispatch();
+
+  const { usersByPage, loading } = useSelector((state) => state.users);
+  const { credentials } = useSelector((state) => state.login);
+
+  console.log("usersByPage", usersByPage);
+
+  useEffect(() => {
+    if (!usersByPage && credentials) {
+      const data = {
+        pageNumber: 0,
+        pageCount: pageCount,
+        requester: {
+          requestID: generateGUID(),
+          requesterID: credentials.data.userID,
+          requesterName: credentials.data.userName,
+          requesterType: credentials.data.role,
+        },
+      };
+
+      dispatch(getUsersbyPage(data));
+    }
+  }, []);
+
   return (
     <PageContainer>
       <div className={styles.topContainer}>
@@ -31,63 +63,6 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>User</td>
-              <td>Email@gmail.com</td>
-              <td>CFO</td>
-              <td>PWC</td>
-              <td>button</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>User</td>
-              <td>Email@gmail.com</td>
-              <td>CFO</td>
-              <td>PWC</td>
-              <td>button</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>User</td>
-              <td>Email@gmail.com</td>
-              <td>CFO</td>
-              <td>PWC</td>
-              <td>button</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>User</td>
-              <td>Email@gmail.com</td>
-              <td>CFO</td>
-              <td>PWC</td>
-              <td>button</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>User</td>
-              <td>Email@gmail.com</td>
-              <td>CFO</td>
-              <td>PWC</td>
-              <td>button</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>User</td>
-              <td>Email@gmail.com</td>
-              <td>CFO</td>
-              <td>PWC</td>
-              <td>button</td>
-            </tr>
-
-            <tr>
-              <td>1</td>
-              <td>User</td>
-              <td>Email@gmail.com</td>
-              <td>CFO</td>
-              <td>PWC</td>
-              <td>button</td>
-            </tr>
             <tr>
               <td>1</td>
               <td>User</td>
