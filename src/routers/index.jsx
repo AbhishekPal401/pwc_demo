@@ -4,6 +4,7 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import AuthRoutes from "../routers/Auth";
 import AdminRoutes from "../routers/admin";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const Routers = () => {
   const [isAuthorised, setIsAuthorised] = useState(false);
@@ -14,10 +15,15 @@ const Routers = () => {
     if (credentials?.success) {
       if (credentials?.data?.token) {
         setIsAuthorised(true);
+        if (credentials?.message) {
+          toast.success(credentials?.message);
+        }
       } else {
         setIsAuthorised(false);
       }
-    } else {
+    } else if (!credentials?.success && credentials?.message) {
+      toast.error(credentials?.message);
+
       setIsAuthorised(false);
     }
   }, [credentials]);
