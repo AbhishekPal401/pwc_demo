@@ -84,13 +84,15 @@ const Users = () => {
               })}
           </tbody>
         </table>
-        <div className={styles.paginationContainer}>
-          <Pagination
-            totalCount={100}
-            pageNumber={pageNumber}
-            countPerPage={pageCount}
-          />
-        </div>
+        {usersByPage && usersByPage.success && usersByPage.data && (
+          <div className={styles.paginationContainer}>
+            <Pagination
+              totalCount={JSON.parse(usersByPage.data)?.TotalCount}
+              pageNumber={pageNumber}
+              countPerPage={pageCount}
+            />
+          </div>
+        )}
       </div>
     </PageContainer>
   );
