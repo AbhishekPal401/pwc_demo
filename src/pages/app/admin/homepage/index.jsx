@@ -33,7 +33,7 @@ const Homepage = () => {
                   <p>Updated: </p>
                 </div>
                 <div>
-                  <Button customClassName={styles.button}>
+                  <Button>
                     Start
                   </Button>
                 </div>
@@ -45,13 +45,13 @@ const Homepage = () => {
         {/* Session History:: end */}
 
         {/* Scenario Table:: start */}
-        <div>
-          <div className={styles.scenarioTopContainer}>
-            <div className={styles.scenarioTopContainerRight}>
+        <div className={styles.scenarioTopContainer}>
+          <div className={styles.scenarioContainer}>
+            <div className={styles.scenarioContainerLeft}>
               <div><h3>Scenarios</h3></div>
               <div><a href="#">See All</a></div>
             </div>
-            <div className={styles.scenarioTopContainerLeft}>
+            <div className={styles.scenarioContainerRight}>
               <Button>Create New</Button>
             </div>
           </div>

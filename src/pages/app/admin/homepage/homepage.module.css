@@ -49,7 +49,6 @@
   background: rgb(61, 61, 61);
   border-radius: 0.5rem;
   padding: 2.5rem 1.4rem;
-  width: 100%;
   background-image: url("/images/session-history.png");
   background-size: cover;
   background-position: top;
@@ -99,43 +98,51 @@
   font-size: 1.2rem;
 }
 
-.button {
+.butonFlexContainer Button {
   display: inline-block;
   font-weight: 500;
   color: #212529;
   text-align: center;
   border: 1px solid #3b3b3b;
-  padding: 1rem 2.5rem;
   font-size: 1.4rem;
-  border-radius: 0.25rem;
+  border-radius: 0.5rem;
   color: var(--black);
   background-color: #fcf2db;
+  padding: 0.5rem 2.5rem;
 }
 
 /* Scenarios Table */
-
+.scenarioTopContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
 .scenarioContainer {
 
 }
 
-.scenarioTopContainer {
+.scenarioContainer {
   display: flex;
   justify-content: space-between;
   align-items: end;
 }
-.scenarioTopContainerLeft {
-  
+.scenarioContainerRight Button{
+  font-size: 1.4rem;
 }
-
-.scenarioTopContainerRight {
+.scenarioContainerLeft {
   display: flex;
   justify-content: start;
   align-items: end;
   gap: 2.4rem;
 }
-
-
-
+.scenarioContainerLeft h3 {
+  font-size: 2rem;
+  color: var(--black);
+  font-weight: bold;
+}
+.scenarioContainerLeft a {
+  font-size: 1.2rem;
+}
 .mainTableContainer {
   width: 100%;
   height: 100%;
