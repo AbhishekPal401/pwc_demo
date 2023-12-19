@@ -9,6 +9,8 @@ const Pagination = ({
 }) => {
   const totalPages = Math.ceil(totalCount / countPerPage);
 
+  console.log(totalCount, pageNumber, countPerPage, totalPages);
+
   const handlePageChange = (newPage) => {
     if (onPageChange) {
       onPageChange(newPage);
@@ -25,16 +27,22 @@ const Pagination = ({
         tabIndex={0}
         onKeyDown={() => {}}
         disabled={pageNumber === 1}
-        onClick={() => handlePageChange(pageNumber - 1)}
+        onClick={() => {
+          if (pageNumber === 1) return;
+          handlePageChange(pageNumber - 1);
+        }}
       >
         Previous
       </div>
       <div className={styles.pages_status}>
         <input
+          disabled
           type="number"
           value={pageNumber}
+          min="1"
+          max={totalPages}
           onChange={(e) => {
-            if (e.target.value < totalPages) {
+            if (e.target.value <= totalPages) {
               handlePageChange(e.target.value);
             }
           }}
@@ -47,7 +55,10 @@ const Pagination = ({
         className={`${styles.next} ${
           pageNumber === totalPages ? styles.disabled : ""
         }`}
-        onClick={() => handlePageChange(pageNumber + 1)}
+        onClick={() => {
+          if (pageNumber === totalPages) return;
+          handlePageChange(pageNumber + 1);
+        }}
         role="button"
         tabIndex={0}
         onKeyDown={() => {}}

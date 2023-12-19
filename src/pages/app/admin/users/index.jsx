@@ -9,23 +9,22 @@ import {
   resetUserState,
 } from "../../../../store/app/admin/users/users";
 import { generateGUID } from "../../../../utils/common.js";
-import { json } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Users = () => {
-  const [pageCount, setPageCount] = useState(10);
-  const [pageNumber, setageNumber] = useState(1);
+  const [pageCount, setPageCount] = useState(5);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { usersByPage, loading } = useSelector((state) => state.users);
   const { credentials } = useSelector((state) => state.login);
 
-  console.log("usersByPage", usersByPage);
-
   useEffect(() => {
     if (credentials) {
       const data = {
-        pageNumber: 1,
+        pageNumber: pageNumber,
         pageCount: pageCount,
         requester: {
           requestID: generateGUID(),
@@ -39,6 +38,20 @@ const Users = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (usersByPage) {
+      const newPageNumber = JSON.parse(usersByPage?.data)?.CurrentPage;
+
+      if (newPageNumber && typeof newPageNumber === "number") {
+        setPageNumber(newPageNumber);
+      }
+    }
+  }, [usersByPage]);
+
+  const navigateTo = () => {
+    navigate("/createusers");
+  };
+
   return (
     <PageContainer>
       <div className={styles.topContainer}>
@@ -48,7 +61,7 @@ const Users = () => {
         <div className={styles.right}>
           <img src="./images/scenario.png" />
           <div className={styles.buttonContainer}>
-            <Button>Create New</Button>
+            <Button onClick={navigateTo}>Create New</Button>
           </div>
         </div>
       </div>
@@ -60,7 +73,7 @@ const Users = () => {
               <th>Username</th>
               <th>EmailId</th>
               <th>Designation</th>
-              <th>Organistion</th>
+              <th>Organisation</th>
               <th>Delete</th>
             </tr>
           </thead>
@@ -71,7 +84,7 @@ const Users = () => {
               JSON.parse(usersByPage.data)?.UserDetails.map((user, index) => {
                 return (
                   <tr key={index}>
-                    <td>{index + 1}</td>
+                    <td>{index + pageCount * (pageNumber - 1) + 1}</td>
                     <td>{user.UserName}</td>
                     <td>{user.Email}</td>
                     <td>{user.Designation}</td>
@@ -90,6 +103,20 @@ const Users = () => {
               totalCount={JSON.parse(usersByPage.data)?.TotalCount}
               pageNumber={pageNumber}
               countPerPage={pageCount}
+              onPageChange={(pageNumber) => {
+                const data = {
+                  pageNumber: pageNumber,
+                  pageCount: pageCount,
+                  requester: {
+                    requestID: generateGUID(),
+                    requesterID: credentials.data.userID,
+                    requesterName: credentials.data.userName,
+                    requesterType: credentials.data.role,
+                  },
+                };
+
+                dispatch(getUsersbyPage(data));
+              }}
             />
           </div>
         )}

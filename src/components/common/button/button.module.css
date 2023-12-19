@@ -29,3 +29,8 @@
   background-color: var(--primary);
   color: var(--black);
 }
+
+.default:hover,
+.login:hover {
+  cursor: pointer;
+}

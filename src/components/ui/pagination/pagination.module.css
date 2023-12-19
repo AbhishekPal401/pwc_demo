@@ -36,7 +36,7 @@
 
 .previous,
 .next {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 500;
 }
 
@@ -49,4 +49,9 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.previous:hover,
+.next:hover {
+  cursor: pointer;
 }
