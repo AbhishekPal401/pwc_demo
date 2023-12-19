@@ -11,6 +11,7 @@ const Users = () => {
           <label>Users</label>
         </div>
         <div className={styles.right}>
+          <img src="./images/scenario.png" />
           <div className={styles.buttonContainer}>
             <Button>Create New</Button>
           </div>
