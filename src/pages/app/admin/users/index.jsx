@@ -47,6 +47,7 @@ const Users = () => {
     }
   }, [usersByPage]);
 
+  const navigate = () => {};
 
   return (
     <PageContainer>
@@ -57,7 +58,7 @@ const Users = () => {
         <div className={styles.right}>
           <img src="./images/scenario.png" />
           <div className={styles.buttonContainer}>
-            <Button onClick={}>Create New</Button>
+            <Button onClick={navigate}>Create New</Button>
           </div>
         </div>
       </div>
