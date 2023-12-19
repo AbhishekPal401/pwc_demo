@@ -12,7 +12,7 @@ import { generateGUID } from "../../../../utils/common.js";
 import { json } from "react-router-dom";
 
 const Users = () => {
-  const [pageCount, setPageCount] = useState(10);
+  const [pageCount, setPageCount] = useState(2);
   const [pageNumber, setPageNumber] = useState(1);
 
   const dispatch = useDispatch();
@@ -38,6 +38,16 @@ const Users = () => {
       dispatch(getUsersbyPage(data));
     }
   }, []);
+
+  useEffect(() => {
+    if (usersByPage) {
+      const newPageNumber = JSON.parse(usersByPage.data).CurrentPage;
+
+      if (newPageNumber && typeof newPageNumber === "number") {
+        setPageNumber(newPageNumber);
+      }
+    }
+  }, [usersByPage]);
 
   return (
     <PageContainer>
@@ -91,7 +101,18 @@ const Users = () => {
               pageNumber={pageNumber}
               countPerPage={pageCount}
               onPageChange={(pageNumber) => {
-                setPageNumber(pageNumber);
+                const data = {
+                  pageNumber: pageNumber,
+                  pageCount: pageCount,
+                  requester: {
+                    requestID: generateGUID(),
+                    requesterID: credentials.data.userID,
+                    requesterName: credentials.data.userName,
+                    requesterType: credentials.data.role,
+                  },
+                };
+
+                dispatch(getUsersbyPage(data));
               }}
             />
           </div>
