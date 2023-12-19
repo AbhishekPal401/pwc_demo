@@ -1,10 +1,21 @@
 import React from "react";
 import PageContainer from "../../../../components/ui/pagecontainer";
+import styles from "./users.module.css";
+import Button from "../../../../components/common/button";
 
 const Users = () => {
   return (
     <PageContainer>
-      <div>1</div>
+      <div className={styles.topContainer}>
+        <div className={styles.left}>
+          <label>Users</label>
+        </div>
+        <div className={styles.right}>
+          <div className={styles.buttonContainer}>
+            <Button>Create New</Button>
+          </div>
+        </div>
+      </div>
     </PageContainer>
   );
 };
