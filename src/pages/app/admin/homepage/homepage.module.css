@@ -113,6 +113,29 @@
 }
 
 /* Scenarios Table */
+
+.scenarioContainer {
+
+}
+
+.scenarioTopContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+.scenarioTopContainerLeft {
+  
+}
+
+.scenarioTopContainerRight {
+  display: flex;
+  justify-content: start;
+  align-items: end;
+  gap: 2.4rem;
+}
+
+
+
 .mainTableContainer {
   width: 100%;
   height: 100%;
