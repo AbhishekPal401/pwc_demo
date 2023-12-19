@@ -12,15 +12,15 @@ const slice = createSlice({
       users.loading = true;
     },
     success: (users, action) => {
-      users.usersByPage = action.payload;
+      users.sessionshistoryByType = action.payload;
       users.loading = false;
     },
     failed: (users, action) => {
-      users.usersByPage = action.payload;
+      users.sessionshistoryByType = action.payload;
       users.loading = false;
     },
     reset: (users, action) => {
-      users.usersByPage = null;
+      users.sessionshistoryByType = null;
       users.loading = false;
     },
   },
