@@ -5,6 +5,7 @@ import Sidebar from "../../components/ui/sidebar/AdminSidebar";
 import styles from "./admin.module.css";
 import Homepage from "../../pages/app/admin/homepage";
 import Users from "../../pages/app/admin/users";
+import CreateUser from "../../pages/app/admin/createusers";
 
 const Admin = () => {
   return (
@@ -18,6 +19,7 @@ const Admin = () => {
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/users" element={<Users />} />
+            <Route path="/createusers" element={<CreateUser />} />
           </Routes>
         </div>
       </div>
