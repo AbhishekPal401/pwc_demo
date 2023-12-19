@@ -12,7 +12,7 @@ import { generateGUID } from "../../../../utils/common.js";
 import { json } from "react-router-dom";
 
 const Users = () => {
-  const [pageCount, setPageCount] = useState(2);
+  const [pageCount, setPageCount] = useState(5);
   const [pageNumber, setPageNumber] = useState(1);
 
   const dispatch = useDispatch();
@@ -41,7 +41,7 @@ const Users = () => {
 
   useEffect(() => {
     if (usersByPage) {
-      const newPageNumber = JSON.parse(usersByPage.data).CurrentPage;
+      const newPageNumber = JSON.parse(usersByPage?.data)?.CurrentPage;
 
       if (newPageNumber && typeof newPageNumber === "number") {
         setPageNumber(newPageNumber);
@@ -81,7 +81,7 @@ const Users = () => {
               JSON.parse(usersByPage.data)?.UserDetails.map((user, index) => {
                 return (
                   <tr key={index}>
-                    <td>{index + 1}</td>
+                    <td>{index + pageCount * (pageNumber - 1) + 1}</td>
                     <td>{user.UserName}</td>
                     <td>{user.Email}</td>
                     <td>{user.Designation}</td>
