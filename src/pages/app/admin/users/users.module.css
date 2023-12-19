@@ -38,6 +38,8 @@
   border: 0.1rem solid #707070;
   border-radius: 0.6rem;
   padding: 0.3rem;
+  max-height: 54rem;
+  overflow-y: auto;
 }
 .table_content {
   border-collapse: collapse;
@@ -48,6 +50,9 @@
 .table_content thead {
   width: 100%;
   background-color: var(--black);
+  /* position: sticky;
+  top: 0;
+  z-index: 1; */
 }
 .table_content thead tr {
   font-size: 1.2rem;
