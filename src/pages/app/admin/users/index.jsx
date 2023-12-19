@@ -13,7 +13,7 @@ import { json } from "react-router-dom";
 
 const Users = () => {
   const [pageCount, setPageCount] = useState(10);
-  const [pageNumber, setageNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const dispatch = useDispatch();
 
@@ -25,7 +25,7 @@ const Users = () => {
   useEffect(() => {
     if (credentials) {
       const data = {
-        pageNumber: 1,
+        pageNumber: pageNumber,
         pageCount: pageCount,
         requester: {
           requestID: generateGUID(),
@@ -90,6 +90,9 @@ const Users = () => {
               totalCount={JSON.parse(usersByPage.data)?.TotalCount}
               pageNumber={pageNumber}
               countPerPage={pageCount}
+              onPageChange={(pageNumber) => {
+                setPageNumber(pageNumber);
+              }}
             />
           </div>
         )}

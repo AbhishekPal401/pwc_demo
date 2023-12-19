@@ -33,8 +33,10 @@ const Pagination = ({
         <input
           type="number"
           value={pageNumber}
+          min="1"
+          max={totalPages}
           onChange={(e) => {
-            if (e.target.value < totalPages) {
+            if (e.target.value <= totalPages) {
               handlePageChange(e.target.value);
             }
           }}
