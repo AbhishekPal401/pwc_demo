@@ -99,7 +99,7 @@ const Users = () => {
           </tbody>
         </table>
         <div className={styles.paginationContainer}>
-          <Pagination totalCount={100} pageNumber={1} countPerPage={10} />
+          <Pagination totalCount={100} pageNumber={10} countPerPage={10} />
         </div>
       </div>
     </PageContainer>

@@ -39,3 +39,8 @@
   font-size: 1.1rem;
   font-weight: 500;
 }
+
+.disabled {
+  color: #979797;
+  opacity: 1;
+}
