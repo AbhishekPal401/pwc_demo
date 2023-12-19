@@ -9,9 +9,11 @@ import {
   resetUserState,
 } from "../../../../store/app/admin/users/users";
 import { generateGUID } from "../../../../utils/common.js";
+import { json } from "react-router-dom";
 
 const Users = () => {
   const [pageCount, setPageCount] = useState(10);
+  const [pageNumber, setageNumber] = useState(1);
 
   const dispatch = useDispatch();
 
@@ -21,9 +23,9 @@ const Users = () => {
   console.log("usersByPage", usersByPage);
 
   useEffect(() => {
-    if (!usersByPage && credentials) {
+    if (credentials) {
       const data = {
-        pageNumber: 0,
+        pageNumber: 1,
         pageCount: pageCount,
         requester: {
           requestID: generateGUID(),
@@ -63,18 +65,31 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>User</td>
-              <td>Email@gmail.com</td>
-              <td>CFO</td>
-              <td>PWC</td>
-              <td>button</td>
-            </tr>
+            {usersByPage &&
+              usersByPage.success &&
+              usersByPage.data &&
+              JSON.parse(usersByPage.data)?.UserDetails.map((user, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{user.UserName}</td>
+                    <td>{user.Email}</td>
+                    <td>{user.Designation}</td>
+                    <td>{user.OrganizationName}</td>
+                    <td>
+                      <button onClick={() => {}}>Delete</button>
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
         <div className={styles.paginationContainer}>
-          <Pagination totalCount={100} pageNumber={10} countPerPage={10} />
+          <Pagination
+            totalCount={100}
+            pageNumber={pageNumber}
+            countPerPage={pageCount}
+          />
         </div>
       </div>
     </PageContainer>
