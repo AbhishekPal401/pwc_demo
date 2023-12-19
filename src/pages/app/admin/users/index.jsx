@@ -47,7 +47,6 @@ const Users = () => {
     }
   }, [usersByPage]);
 
-  const 
 
   return (
     <PageContainer>
