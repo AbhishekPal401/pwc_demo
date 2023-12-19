@@ -20,8 +20,6 @@ const Users = () => {
   const { usersByPage, loading } = useSelector((state) => state.users);
   const { credentials } = useSelector((state) => state.login);
 
-  console.log("usersByPage", usersByPage);
-
   useEffect(() => {
     if (credentials) {
       const data = {
