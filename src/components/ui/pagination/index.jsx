@@ -6,11 +6,18 @@ const Pagination = ({
   pageNumber = 1,
   countPerPage = 10,
 }) => {
+  const totalPages = Math.ceil(totalCount / countPerPage);
+
   return (
     <div className={styles.container}>
-      <div></div>
-      <div></div>
-      <div></div>
+      <div className={styles.previous}>Previous</div>
+      <div className={styles.pages_status}>
+        <input value={pageNumber} />
+        <div>
+          of <label>{totalPages}</label>
+        </div>
+      </div>
+      <div className={styles.next}>Next </div>
     </div>
   );
 };
