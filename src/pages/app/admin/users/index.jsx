@@ -47,6 +47,8 @@ const Users = () => {
     }
   }, [usersByPage]);
 
+  const 
+
   return (
     <PageContainer>
       <div className={styles.topContainer}>
@@ -56,7 +58,7 @@ const Users = () => {
         <div className={styles.right}>
           <img src="./images/scenario.png" />
           <div className={styles.buttonContainer}>
-            <Button>Create New</Button>
+            <Button onClick={}>Create New</Button>
           </div>
         </div>
       </div>
@@ -68,7 +70,7 @@ const Users = () => {
               <th>Username</th>
               <th>EmailId</th>
               <th>Designation</th>
-              <th>Organistion</th>
+              <th>Organisation</th>
               <th>Delete</th>
             </tr>
           </thead>
