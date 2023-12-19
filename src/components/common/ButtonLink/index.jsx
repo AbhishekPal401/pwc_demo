@@ -15,7 +15,7 @@ const ButtonLink = ({
 
   return (
     <Container
-      to={!disabled && linkTo}
+      to={!disabled ? linkTo : ""}
       style={style}
       className={styles.iconContainer}
       onClick={onClick}

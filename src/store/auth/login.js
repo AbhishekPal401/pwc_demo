@@ -33,6 +33,12 @@ const slice = createSlice({
       users.credentials = action.payload;
       users.loading = false;
     },
+
+    reset: (users, action) => {
+      users.credentials = null;
+      users.loading = false;
+      users.status = "idle";
+    },
   },
   // extraReducers(builder) {
   //   builder
@@ -50,7 +56,7 @@ const slice = createSlice({
   // },
 });
 
-export const { requested, success, failed, logout } = slice.actions;
+const { requested, success, failed, logout, reset } = slice.actions;
 
 export default slice.reducer;
 
@@ -79,8 +85,6 @@ export const login = (data) => async (dispatch) => {
       headers,
     });
 
-    console.log(response.data);
-
     dispatch(success(response.data));
   } catch (err) {
     dispatch(
@@ -89,6 +93,10 @@ export const login = (data) => async (dispatch) => {
       )
     );
   }
+};
+
+export const resetLoginState = () => async (dispatch) => {
+  dispatch(reset());
 };
 
 export const azurelogin = (data) => async (dispatch) => {

@@ -17,6 +17,7 @@ const api =
       onFailed,
       onUploadProgress,
       onCancel,
+      onReset,
     } = action.payload;
 
     if (onStart) dispatch({ type: onStart });
@@ -26,6 +27,10 @@ const api =
       const {
         credentials: { credentials },
       } = getState();
+
+      console.log(onReset);
+
+      if (onReset) dispatch({ type: onReset, payload: null });
 
       let headers = {
         "Content-Type": "application/json",
