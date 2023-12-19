@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import styles from "./adminsidebar.module.css";
 import ButtonLink from "../../common/ButtonLink";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentActive } from "../../../store/local/sidebar.js";
 
 const AdminSidebar = () => {
-  const [currentActive, setCurrentActive] = useState("home");
+  const { currentActive } = useSelector((state) => state.sidebar);
+
+  const dispatch = useDispatch();
 
   return (
     <div className={styles.container}>
@@ -15,7 +19,7 @@ const AdminSidebar = () => {
         isActive={currentActive === "home"}
         svgSrc="sprite.svg#homepage"
         onClick={() => {
-          setCurrentActive("home");
+          dispatch(setCurrentActive("home"));
         }}
       />
 
@@ -24,7 +28,7 @@ const AdminSidebar = () => {
         isActive={currentActive === "users"}
         svgSrc="sprite.svg#homepage"
         onClick={() => {
-          setCurrentActive("users");
+          dispatch(setCurrentActive("users"));
         }}
       />
 
@@ -33,7 +37,7 @@ const AdminSidebar = () => {
         isActive={currentActive === "scenario"}
         svgSrc="sprite.svg#scenario"
         onClick={() => {
-          setCurrentActive("scenario");
+          dispatch(setCurrentActive("scenario"));
         }}
       />
       <ButtonLink
@@ -41,7 +45,7 @@ const AdminSidebar = () => {
         isActive={currentActive === "questionbuilder"}
         svgSrc="sprite.svg#questionBuilder"
         onClick={() => {
-          setCurrentActive("questionbuilder");
+          dispatch(setCurrentActive("questionbuilder"));
         }}
       />
       <ButtonLink
@@ -49,7 +53,7 @@ const AdminSidebar = () => {
         isActive={currentActive === "decisiontree"}
         svgSrc="sprite.svg#decisionTree"
         onClick={() => {
-          setCurrentActive("decisiontree");
+          dispatch(setCurrentActive("decisiontree"));
         }}
       />
 
@@ -59,7 +63,7 @@ const AdminSidebar = () => {
           isActive={currentActive === "logout"}
           svgSrc="sprite.svg#logout"
           onClick={() => {
-            setCurrentActive("logout");
+            dispatch(setCurrentActive("logout"));
           }}
         />
       </div>
