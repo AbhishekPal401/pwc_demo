@@ -1,0 +1,23 @@
+.Toastify__toast-body {
+  font-size: 1.5rem;
+}
+
+.Toastify__toast--success {
+  background-color: #ffffff !important;
+}
+
+.Toastify__toast-progress-bar--success {
+  background-color: var(--primary) !important;
+}
+
+.Toastify__close-button > svg {
+  color: var(--black);
+}
+
+.Toastify__progress-bar--success {
+  background-color: var(--primary) !important;
+}
+
+.Toastify__progress-bar--error {
+  background-color: var(--red) !important;
+}

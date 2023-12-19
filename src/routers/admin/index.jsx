@@ -1,9 +1,10 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Homepage from "../../pages/app/admin/homepage";
 import Navbar from "../../components/ui/navbar";
 import Sidebar from "../../components/ui/sidebar/AdminSidebar";
 import styles from "./admin.module.css";
+import Homepage from "../../pages/app/admin/homepage";
+import Users from "../../pages/app/admin/users";
 
 const Admin = () => {
   return (
@@ -16,6 +17,7 @@ const Admin = () => {
         <div className={styles.rightContainer}>
           <Routes>
             <Route path="/" element={<Homepage />} />
+            <Route path="/users" element={<Users />} />
           </Routes>
         </div>
       </div>

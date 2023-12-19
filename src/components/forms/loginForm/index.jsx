@@ -50,18 +50,19 @@ const LoginForm = () => {
       };
 
       valid = false;
+    } else if (
+      loginData.username.value.includes("@") &&
+      !validateEmail(loginData.username.value)
+    ) {
+      data = {
+        ...loginData,
+        username: {
+          ...loginData.username,
+          error: "Please enter a valid email",
+        },
+      };
+      valid = false;
     }
-
-    // else if (!validateEmail(loginData.username.value)) {
-    //   data = {
-    //     ...loginData,
-    //     username: {
-    //       ...loginData.username,
-    //       error: "Please enter a valid username/email",
-    //     },
-    //   };
-    //   valid = false;
-    // }
 
     if (loginData.password.value === "") {
       data = {
@@ -92,6 +93,8 @@ const LoginForm = () => {
       };
 
       dispatch(login(data));
+    } else {
+      setLoginData(data);
     }
   };
 

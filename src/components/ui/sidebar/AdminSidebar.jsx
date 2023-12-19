@@ -18,6 +18,16 @@ const AdminSidebar = () => {
           setCurrentActive("home");
         }}
       />
+
+      <ButtonLink
+        linkTo="/users"
+        isActive={currentActive === "users"}
+        svgSrc="sprite.svg#homepage"
+        onClick={() => {
+          setCurrentActive("users");
+        }}
+      />
+
       <ButtonLink
         linkTo="/scenario"
         isActive={currentActive === "scenario"}
